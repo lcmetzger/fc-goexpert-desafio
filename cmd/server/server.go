@@ -54,8 +54,11 @@ func main() {
 		}
 
 		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusOK)
-		json.NewEncoder(w).Encode("bid: " + strconv.FormatFloat(float64(cotacao), 'f', 2, 32))
+		json.NewEncoder(w).Encode(struct {
+			Bid float64 `json:"bid"`
+		}{
+			Bid: cotacao,
+		})
 	})
 
 	http.ListenAndServe(":8080", nil)
